@@ -1,0 +1,91 @@
+Data Science for Clinicians
+========================================================
+author: Nikolas Pontikos
+date: 
+autosize: true
+
+
+First Slide
+========================================================
+
+For more details on authoring R presentations please visit <https://support.rstudio.com/hc/en-us/articles/200486468>.
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+Anscombe Quartet
+========================================================
+
+```{r, echo=FALSE}
+knitr::kable(anscombe, format="html")
+```
+Anscombe Quartet
+========================================================
+
+```{r, echo=FALSE}
+plot(anscombe[,c('x1','y1')],pch=19,cex=2,col='lightblue')
+text(anscombe[,c('x1','y1')],labels=rownames(anscombe),cex=.9,font=2)
+round(cor(anscombe[,c('x2','y2')]),3)
+plot(anscombe[,c('x2','y2')])
+plot(anscombe[,c('x3','y3')])
+plot(anscombe[,c('x4','y4')],pch=19,cex=2,col='lightblue')
+text(anscombe[,c('x4','y4')],labels=rownames(anscombe),cex=.9,font=2)
+```
+
+Residuals
+========================================================
+
+```{r, echo=FALSE}
+library(ggplot2)
+fit <- lm(y1 ~ x1, data = anscombe) # fit the model
+anscombe$predicted <- predict(fit)   # Save the predicted values
+anscombe$residuals <- residuals(fit) # Save the residual values
+ggplot(anscombe, aes(x = x1, y = y1)) +
+  geom_smooth(method = "lm", se = FALSE, color = "lightgrey") +     # regression line  
+  geom_segment(aes(xend = x1, yend = predicted),alpha=0.2) +      # draw line from point to line
+  geom_point(aes(color = abs(residuals), size = abs(residuals))) +  # size of the points
+  scale_color_continuous(low = "green", high = "red") +        # colour of the points mapped to residual size - green smaller, red larger
+  guides(color = FALSE, size = FALSE) +                             # Size legend removed
+  geom_point(aes(y = predicted), shape = 1) +
+  theme_bw()
+
+fit <- lm(y2 ~ x2, data = anscombe) # fit the model
+anscombe$predicted <- predict(fit)   # Save the predicted values
+anscombe$residuals <- residuals(fit) # Save the residual values
+ggplot(anscombe, aes(x = x2, y = y2)) +
+  geom_smooth(method = "lm", se = FALSE, color = "lightgrey") +     # regression line  
+  geom_segment(aes(xend = x2, yend = predicted),alpha=0.2) +      # draw line from point to line
+  geom_point(aes(color = abs(residuals), size = abs(residuals))) +  # size of the points
+  scale_color_continuous(low = "green", high = "red") +        # colour of the points mapped to residual size - green smaller, red larger
+  guides(color = FALSE, size = FALSE) +                             # Size legend removed
+  geom_point(aes(y = predicted), shape = 1) +
+  theme_bw()
+
+
+fit <- lm(y3 ~ x3, data = anscombe) # fit the model
+anscombe$predicted <- predict(fit)   # Save the predicted values
+anscombe$residuals <- residuals(fit) # Save the residual values
+ggplot(anscombe, aes(x = x3, y = y3)) +
+  geom_smooth(method = "lm", se = FALSE, color = "lightgrey") +     # regression line  
+  geom_segment(aes(xend = x3, yend = predicted),alpha=0.2) +      # draw line from point to line
+  geom_point(aes(color = abs(residuals), size = abs(residuals))) +  # size of the points
+  scale_color_continuous(low = "green", high = "red") +        # colour of the points mapped to residual size - green smaller, red larger
+  guides(color = FALSE, size = FALSE) +                             # Size legend removed
+  geom_point(aes(y = predicted), shape = 1) +
+  theme_bw()
+
+
+fit <- lm(y4 ~ x4, data = anscombe) # fit the model
+anscombe$predicted <- predict(fit)   # Save the predicted values
+anscombe$residuals <- residuals(fit) # Save the residual values
+ggplot(anscombe, aes(x = x4, y = y4)) +
+  geom_smooth(method = "lm", se = FALSE, color = "lightgrey") +     # regression line  
+  geom_segment(aes(xend = x4, yend = predicted),alpha=0.2) +      # draw line from point to line
+  geom_point(aes(color = abs(residuals), size = abs(residuals))) +  # size of the points
+  scale_color_continuous(low = "green", high = "red") +        # colour of the points mapped to residual size - green smaller, red larger
+  guides(color = FALSE, size = FALSE) +                             # Size legend removed
+  geom_point(aes(y = predicted), shape = 1) +
+  theme_bw()
+```
+
